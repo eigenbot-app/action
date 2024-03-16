@@ -1,0 +1,30 @@
+name: Eigenbot
+description: Run the Eigenbot CLI
+branding:
+  icon: check-square
+  color: green
+inputs:
+  version:
+    description: "Version of the Eigenbot CLI to use"
+    default: v0.1.0
+  command:
+    description: "Command to run; index or reconcile"
+    required: true
+  args:
+    description: "Arguments to pass to the command"
+    required: false
+  access-key:
+    description: "Access Key presented to you during installation"
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        docker run \
+          -v ${{ github.workspace }}:/workspace:ro \
+          ghcr.io/eigenbot-app/cli:${{ inputs.version }} \
+          ${{ inputs.command }} \
+          ${{ inputs.args }} \
+          --access-key "${{ inputs.access-key }}" \
+          --path /workspace
