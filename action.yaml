@@ -26,5 +26,4 @@ runs:
           ghcr.io/eigenbot-app/cli:${{ inputs.version }} \
           ${{ inputs.command }} \
           ${{ inputs.args }} \
-          --access-key "${{ inputs.access-key }}" \
-          --path /workspace
+          --access-key "${{ inputs.access-key }}"
